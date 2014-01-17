@@ -1,0 +1,90 @@
+<h2> <%= @testvar %> </h2>
+
+<h1>Listing products</h1>
+
+<table border = "1">
+  <thead>
+    <tr>
+      <th width = 150 >DateTime</th>
+      <th>User</th>
+      <th>location</th>
+      <th>Price <%=get_address('12','15')%></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @mathacersusers.each do |user| %>
+      <tr>
+        <td><%= DateTime.parse(user["LogDateTime"]).in_time_zone("Pacific Time (US & Canada)").to_formatted_s(:short)  %></td>
+        <td><%= user["UserEmail"] %></td>
+       
+        <td><a href ="/map?latt=<%= user["LocationLattiitude"].to_s + "&lang=" + user["LocationLongitude"].to_s %>" > show </a> </td>
+        <td class ="test"><%= user["LocationLattiitude"].to_s + "," + user["LocationLongitude"].to_s %></td>
+        <td><%= user["LogHeader"] %></td>
+        <td><%= user["LogDetail"] %></td>
+      </tr>
+    <% end %>
+  </tbody>  
+</table>
+
+<script type="text/javascript">
+function test()
+{
+  alert(this.html)
+  //alert('<%=get_address('12','15')%>' )
+  //this.html = "hjgj"
+};
+
+</script>
+
+<table>
+  <thead>
+    <tr>
+      <th>Address</th>
+    </tr>
+  </thead>
+
+  <tbody>
+      <tr>
+        <td class = "test"> <%= get_address('12','15') %></td>
+      </tr>
+      <tr>
+        <td class = "test" >dsfdsf</td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Image url</th>
+      <th>Price</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.title %></td>
+        <td><%= product.description %></td>
+        <td><%= product.image_url %></td>
+        <td><%= product.price %></td>
+        <td><%= link_to 'Show', product %></td>
+        <td><%= link_to 'Edit', edit_product_path(product) %></td>
+        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Product', new_product_path %>
